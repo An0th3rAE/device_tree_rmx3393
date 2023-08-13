@@ -87,3 +87,4 @@ include device/mediatek/build/core/build_dtboimage.mk
 
 endif#TARGET_NO_KERNEL
 endif#LINUX_KERNEL_VERSION
+
