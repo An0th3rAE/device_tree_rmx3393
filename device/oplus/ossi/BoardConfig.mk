@@ -40,14 +40,16 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
+BOARD_HAS_NO_REAL_SDCARD := true
 
 # APEX
 DEXPREOPT_GENERATE_APEX_IMAGE := true
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := k6877v1_64_6877T
+TARGET_BOARD_PLATFORM := mt6877
+TARGET_BOOTLOADER_BOARD_NAME := mt6877
 TARGET_NO_BOOTLOADER := true
-
+PRODUCT_PLATFORM := mt6877
 # Display
 TARGET_SCREEN_DENSITY := 480
 
@@ -65,6 +67,7 @@ BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTBO_IN_BOOTIMG := true
 TARGET_KERNEL_CONFIG := k6877v1_64_6877T_defconfig
 TARGET_KERNEL_SOURCE := kernel/oplus/ossi/
+BOARD_KERNEL_SEPARATED_DTBO := true
 
 TARGET_IS_64_BIT := true
 TARGET_USES_64_BIT_BINDER := true
@@ -74,8 +77,6 @@ ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 endif
 
 # Partitions
@@ -91,17 +92,16 @@ BOARD_VENDORIMAGE_PARTITION_SIZE := 897581056
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := oplus_dynamic_partitions
+TARGET_USES_PREBUILT_DYNAMIC_PARTITIONS := true
 BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := system system system_ext vendor vendor product product odm odm my_product my_product my_engineering my_engineering my_company my_company my_carrier my_carrier my_region my_region my_heytap my_heytap my_stock my_stock my_preload my_preload my_manifest my_manifest my_bigball my_bigball
 BOARD_OPLUS_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
-# Platform
-TARGET_BOARD_PLATFORM := mt6877
 
 # Set FSTAB
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Recovery
-TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
@@ -129,7 +129,9 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 3
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
+TARGET_BUILD_PROP := $(DEVICE_PATH)recovery/root/system/build.prop
 TARGET_RECOVERY_INITRC := $(DEVICE_PATH)/recovery/root/init.recovery.mt6877.rc
+TARGET_COPY_OUT_VENDOR := vendor
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
@@ -149,13 +151,11 @@ TW_INCLUDE_REPACKTOOLS := true
 
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
-TW_EXCLUDE_SUPERSU := false                    # true/false: Add SuperSU or not
 TW_INCLUDE_CRYPTO := true                     # true/false: Add Data Encryption Support or not
 RECOVERY_SDCARD_ON_DATA := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
-TW_USE_TOOLBOX := true
 TW_INCLUDE_RESETPROP := true
 TW_IMPUT_BACKLIST := "hbtp_vm"
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
@@ -180,9 +180,5 @@ TW_OVERRIDE_SYSTEM_PROPS := \
     "ro.build.fingerprint=ro.system.build.fingerprint;ro.build.version.incremental"
 
 
-# resetprop and magiskboot
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_FB2PNG := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 

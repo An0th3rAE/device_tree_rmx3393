@@ -3,9 +3,6 @@ ro.product.device=RMX3393
 # Platform
 ro.hardware=mt6877
 ro.mediatek.platform=MT6877
-# Root
-ro.debuggable=1
-ro.adb.secure=0
 # Props to support stock OTA
 ro.commonsoft.ota=RMX3393
 ro.product.product.device=RMX3393
@@ -16,7 +13,6 @@ sys.usb.rmnet.func.name=rmnet_bam
 persist.sys.isUsbOtgEnabled=true
 vendor.gatekeeper.disable_spu=true
 ro.boot.dynamic_partitions=true
-ro.adb.secure=0
 ro.boot.avb_version=1.0
 ro.boot.vbmeta.avb_version=1.0
 fbe.metadata.wrappedkey=true
